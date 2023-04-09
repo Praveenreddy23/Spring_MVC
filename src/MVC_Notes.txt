@@ -1,0 +1,139 @@
+--> SPRING MVC:
+
+ ==] Servlet:
+    -> It is server side programming which involves all three logics, such as Business Logic, Persistence Logic,
+        Presentation Logic along with it will take request from client and server response.
+    -> Servlet is used to write business logic(Validation,calculation, process)
+
+ ==] HTML:
+    -> It will provide structure of web page.
+    -> Static type.
+
+ ==] JSP:(Java Server page)
+    -> It will provide structure of web page.
+    -> Dynamic type
+    -> Presentation Logic
+    -> same tag of HTML can be used in JSP.
+
+ ==] JDBC:
+    -> Persistence Logic.
+
+ ==] MVC: (Model View Controller):
+   -> A Spring MVC is a sub-framework of Spring Framework  which is used to build 'web applications'.
+   -> It is build on top of Servlet API.
+   -> It follows the "Model-View-Controller" design pattern.
+   -> It implements all the basic features of a core spring framework like Inversion of Control, Dependency Injection.
+
+   -> A Spring MVC provides an elegant solution to use MVC in spring framework by the help of DispatcherServlet.
+      Here, DispatcherServlet is a class that receives the incoming request and maps it to the right resource such as controllers, models, and views.
+   -> DispatcherServlet that handles all the HTTP request and response.
+
+   Model:-
+      -> Model represents an object or java pojo carrying data.
+   View:-
+      -> view represents the visualization of the data that model contains.
+   Controller:-
+      -> controller act on both model and view, It controls the data flow into the model object and update the view whenever data changes.
+        -> It keeps view and model separate.
+
+  --> Why Spring MVC/ Advantages:
+     -> Separate roles:- The Spring MVC separates each role, where the model object, controller,
+          - command object, view resolver, DispatcherServlet, validator, etc. can be fulfilled by a specialized object.
+
+     -> Light-weight - It uses light-weight servlet container to develop and deploy your application.
+
+     -> Powerful Configuration - It provides a robust configuration for both framework and application classes
+        - that includes easy referencing across contexts, such as from web controllers to business objects and validators.
+
+     -> Rapid development - The Spring MVC facilitates fast and parallel development.
+
+     -> Reusable business code - Instead of creating new objects, it allows us to use the existing business objects.
+
+     -> Easy to test - In Spring, generally we create JavaBeans classes that enable you to inject test data using the setter methods.
+
+     -> Flexible Mapping - It provides the specific annotations that easily redirect the page.
+
+ ==] Spring MVC Application creation steps:
+      1) Configure the 'DispatcherServlet' in web.xml
+      2) Create 'Spring Configuration'
+      3) Configure 'View Resolver'
+      4) Create 'Controller'
+      5) Create ' View to show(page)'
+
+     Example:
+          1) <web-app>
+               <display-name>Archetype Created Web Application</display-name>
+               <!-- Configure Dispatcher Servlet -->
+               <servlet>
+                 <servlet-name>spring</servlet-name>
+                 <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+               </servlet>
+               <servlet-mapping>
+                 <servlet-name>spring</servlet-name>
+                 <url-pattern>/</url-pattern>
+               </servlet-mapping>
+             </web-app>
+
+          2) and 3)   <context:component-scan base-package="com.springmvc.controller"/>
+                 <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+                       name="viewResolver">
+                     <property name="prefix" value="/WEB-INF/views/"/>
+                     <property name="suffix" value=".jsp"/>
+                 </bean>
+
+          4) @Controller
+             public class HomeController {
+                 @RequestMapping("/home")
+                 public String home(){
+                     System.out.println("hello");
+                     return "index";
+                 }
+             }
+
+          5) <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+             <html>
+             <head>
+                 <title>MVC</title>
+             </head>
+             <center>
+             <body bgcolor="#f0f8ff" >
+             <h1>THis is Home Page</h1>
+             </body>
+             </center>
+             </html>
+
+  --> View Resolver:
+     -> It is a interface.
+     -> It helps/tells controller to display which jsp file based on request made by client.
+       (It is the one which will decide which view(jsp page) to be displayed)
+     -> Since, it is a interface sp object or bean can not be created
+         Hence, we need to use its impl.. class.
+        -> The impl class name is -> InternalResourceViewResolver.
+
+     -> To InternalResourceViewResolver user need to set 2-diff property:
+         1) prefix:-
+               -> Specify the folder in which the view(jsp) is present (from where to start)
+         2) Suffix:-
+               -> Ending position/Final Destination of view name.
+          i.e:
+              <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" name="viewResolver">
+                          <property name="prefix" value="/WEB-INF/views/"/>
+                          <property name="suffix" value=".jsp"/>
+              </bean>
+
+ ==] Redirect In MVC:
+    1) redirect prefix
+    2) RedirectView
+  1) redirect prefix:
+    ->public String handler(){
+        return "redirect:/url"
+    }
+     Ex:
+
+  2) RedirectView:
+    -> public RedirectView handler() {
+        RedirectView redirectView = new RedirectView();
+          redirectView.setUrl("");
+          return redirectView;
+    }
+     Ex:
