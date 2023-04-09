@@ -129,6 +129,11 @@
         return "redirect:/url"
     }
      Ex:
+          @RequestMapping(path = "/one")
+          public String methodOne(){
+            System.out.println("This is MethodOne");
+             return "redirect:/two";
+   }
 
   2) RedirectView:
     -> public RedirectView handler() {
@@ -137,3 +142,12 @@
           return redirectView;
     }
      Ex:
+             @RequestMapping(path = "/one")
+             public RedirectView methodOne(){
+              System.out.println("This is MethodOne");
+              RedirectView redirectView = new RedirectView();
+              redirectView.setUrl("two");//Relative URL//redirectView.setUrl("https://www.github.com");
+               return redirectView;
+            }
+            
+            
